@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">HelloFresh</string>
+    <string name="retry">Retry</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="PREFS">pref</string>
+    <string name="LOGGED_IN">logged_in</string>
+    <string name="HAS_LOGGED_IN">has_logged_in</string>
+</resources>

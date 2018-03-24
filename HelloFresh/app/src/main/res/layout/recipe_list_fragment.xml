@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="hellofresh.test.com.hellofresh.vo.Recipe"/>
+        <import type="java.util.List"/>
+        <import type="hellofresh.test.com.hellofresh.vo.Status"/>
+        <import type="hellofresh.test.com.hellofresh.vo.Resource"/>
+        <variable name="resultCount" type="int"/>
+        <variable name="loadingMore" type="boolean"/>
+        <variable name="recipeResource" type="Resource"/>
+        <variable name="callback" type="hellofresh.test.com.hellofresh.ui.common.RetryCallback"/>
+    </data>
+    <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recipe_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            />
+        <include layout="@layout/loading_state"
+                 app:resource="@{recipeResource}"
+                 app:callback="@{() -> callback.retry()}"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 app:layout_constraintStart_toStartOf="parent"
+                 />
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:id="@+id/load_more_bar"
+            app:visibleGone="@{loadingMore}"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+</layout>
