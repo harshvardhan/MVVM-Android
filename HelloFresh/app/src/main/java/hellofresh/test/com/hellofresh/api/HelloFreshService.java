@@ -38,7 +38,6 @@ public interface HelloFreshService {
 
     //https://api.myjson.com/bins/15s0fr
     //Hosted a JSON with single a recipe on myjson.com
-    @VisibleForTesting
     @GET("bins/15s0fr")
     LiveData<ApiResponse<Recipe>> getRecipe();
 }

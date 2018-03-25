@@ -109,7 +109,7 @@ public class RecipeRepository {
 
             @Override
             protected boolean shouldFetch(@Nullable Recipe data) {
-                return false;
+                return true;
             }
 
             @NonNull
@@ -121,7 +121,7 @@ public class RecipeRepository {
             @NonNull
             @Override
             protected LiveData<ApiResponse<Recipe>> createCall() {
-                return null;
+                return helloFreshService.getRecipe();
             }
         }.asLiveData();
     }
