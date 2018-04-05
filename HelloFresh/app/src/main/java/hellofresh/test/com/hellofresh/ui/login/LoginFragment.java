@@ -25,7 +25,6 @@ import hellofresh.test.com.hellofresh.binding.FragmentDataBindingComponent;
 import hellofresh.test.com.hellofresh.databinding.LoginFragmentBinding;
 import hellofresh.test.com.hellofresh.di.Injectable;
 import hellofresh.test.com.hellofresh.ui.common.NavigationController;
-import hellofresh.test.com.hellofresh.ui.list.RecipeListViewModel;
 import hellofresh.test.com.hellofresh.util.AutoClearedValue;
 
 /**
@@ -37,14 +36,14 @@ public class LoginFragment extends LifecycleFragment implements Injectable {
     private static final String USER_PASSWORD = "BurnThemAll";
 
     @Inject
-    ViewModelProvider.Factory viewModelFactory;
+    public ViewModelProvider.Factory viewModelFactory;
 
     private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
 
     @Inject
-    NavigationController navigationController;
+    public NavigationController navigationController;
 
-    FragmentDataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
+    public FragmentDataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
 
     AutoClearedValue<LoginFragmentBinding> binding;
 
@@ -104,18 +103,18 @@ public class LoginFragment extends LifecycleFragment implements Injectable {
         binding.get().userPasswordLayout.setError(null);
 
         if (TextUtils.isEmpty(email)) {
-            binding.get().userEmailLayout.setError("Email is required");
+            binding.get().userEmailLayout.setError(getString(R.string.email_required_error));
             return false;
         } else if (!isEmailValid(email)) {
-            binding.get().userEmailLayout.setError("Enter a valid email");
+            binding.get().userEmailLayout.setError(getString(R.string.invalid_email_error));
             return false;
         }
 
         if (TextUtils.isEmpty(password)) {
-            binding.get().userPasswordLayout.setError("Password is required");
+            binding.get().userPasswordLayout.setError(getString(R.string.password_required_error));
             return false;
         } else if (!isPasswordValid(password)) {
-            binding.get().userPasswordLayout.setError("Password must contain at least 6 characters");
+            binding.get().userPasswordLayout.setError(getString(R.string.invalid_password_error));
             return false;
         }
 

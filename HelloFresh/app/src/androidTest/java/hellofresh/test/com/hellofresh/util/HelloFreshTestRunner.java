@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package hellofresh.test.com.hellofresh;
+package hellofresh.test.com.hellofresh.util;
 
 import android.app.Application;
 import android.content.Context;
 import android.support.test.runner.AndroidJUnitRunner;
+
+import hellofresh.test.com.hellofresh.TestApp;
 
 /**
  * Custom runner to disable dependency injection.

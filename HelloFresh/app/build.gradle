@@ -30,7 +30,7 @@ android {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
-        testInstrumentationRunner "hellofresh.test.com.hellofresh.HelloFreshTestRunner"
+        testInstrumentationRunner "hellofresh.test.com.hellofresh.util.HelloFreshTestRunner"
     }
     buildTypes {
         debug {

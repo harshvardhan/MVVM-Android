@@ -5,4 +5,8 @@
     <string name="PREFS">pref</string>
     <string name="LOGGED_IN">logged_in</string>
     <string name="HAS_LOGGED_IN">has_logged_in</string>
+    <string name="email_required_error">Email is required</string>
+    <string name="invalid_email_error">Enter a valid email</string>
+    <string name="password_required_error">Password is required</string>
+    <string name="invalid_password_error">Password must contain at least 6 characters</string>
 </resources>
