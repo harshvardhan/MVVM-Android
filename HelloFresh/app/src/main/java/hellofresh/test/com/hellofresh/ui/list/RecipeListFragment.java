@@ -34,16 +34,16 @@ import hellofresh.test.com.hellofresh.util.AutoClearedValue;
 public class RecipeListFragment extends Fragment implements LifecycleRegistryOwner, Injectable {
 
     @Inject
-    ViewModelProvider.Factory viewModelFactory;
+    public  ViewModelProvider.Factory viewModelFactory;
 
     private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
 
     @Inject
-    NavigationController navigationController;
+    public NavigationController navigationController;
 
-    FragmentDataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
+    public FragmentDataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
 
-    AutoClearedValue<RecipeListFragmentBinding> binding;
+    public AutoClearedValue<RecipeListFragmentBinding> binding;
 
     AutoClearedValue<RecipeListAdapter> adapter;
 
@@ -87,19 +87,6 @@ public class RecipeListFragment extends Fragment implements LifecycleRegistryOwn
             binding.get().setResultCount((result == null || result.data == null)
                     ? 0 : result.data.size());
             adapter.get().replace(result == null ? null : result.data);
-            binding.get().executePendingBindings();
-        });
-
-        recipeListViewModel.getLoadMoreStatus().observe(this, loadingMore -> {
-            if (loadingMore == null) {
-                binding.get().setLoadingMore(false);
-            } else {
-                binding.get().setLoadingMore(loadingMore.isRunning());
-                String error = loadingMore.getErrorMessageIfNotHandled();
-                if (error != null) {
-                    Snackbar.make(binding.get().loadMoreBar, error, Snackbar.LENGTH_LONG).show();
-                }
-            }
             binding.get().executePendingBindings();
         });
     }
