@@ -120,6 +120,30 @@ public class RecipeListFragmentTest {
         }
     }
 
+    @Test
+    public void testError() throws InterruptedException {
+        recipes.postValue(Resource.error("foo", null));
+        onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.retry)).check(matches(isDisplayed()));
+        onView(withId(R.id.retry)).perform(click());
+        verify(viewModel).refresh();
+        recipes.postValue(Resource.loading(null));
+
+        onView(withId(R.id.progress_bar)).check(matches(isDisplayed()));
+        onView(withId(R.id.retry)).check(matches(not(isDisplayed())));
+        try {
+            List<Recipe> listRecipes = setReceipeList();
+            recipes.postValue(Resource.success(listRecipes));
+
+            onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())));
+            onView(withId(R.id.retry)).check(matches(not(isDisplayed())));
+            onView(withId(R.id.recipe_title)).check(matches(withText("Crispy Fish Goujons ")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private List<Recipe> setReceipeList() throws Exception {
         List<Recipe> listRecipes = new ArrayList<>();
         listRecipes.add(TestUtil.createRecipe());

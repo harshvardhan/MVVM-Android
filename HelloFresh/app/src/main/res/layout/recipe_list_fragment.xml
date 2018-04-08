@@ -27,7 +27,7 @@
                  app:callback="@{() -> callback.retry()}"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 app:layout_constraintStart_toStartOf="parent"
+                 android:layout_centerInParent="true"
                  />
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"

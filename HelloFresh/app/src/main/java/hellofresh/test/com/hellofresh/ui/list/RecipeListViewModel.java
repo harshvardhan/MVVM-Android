@@ -78,10 +78,12 @@ public class RecipeListViewModel extends ViewModel {
         nextPageHandler.queryNextPage(value);
     }
 
-    void refresh() {
+    public void refresh() {
         if (query.getValue() != null) {
             query.setValue(query.getValue());
         }
+        else
+            query.setValue("");
     }
     static class LoadMoreState {
         private final boolean running;
