@@ -43,7 +43,7 @@ public class RecipeListViewModel extends ViewModel {
     private final NextPageHandler nextPageHandler;
 
     @Inject
-    RecipeListViewModel(RecipeRepository recipeRepository) {
+    public RecipeListViewModel(RecipeRepository recipeRepository) {
         nextPageHandler = new NextPageHandler(recipeRepository);
         recipes = Transformations.switchMap(query, search -> {
             if (search == null || search.trim().length() == 0) {
