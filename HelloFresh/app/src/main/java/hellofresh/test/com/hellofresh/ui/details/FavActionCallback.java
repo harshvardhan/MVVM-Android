@@ -23,7 +23,7 @@ import hellofresh.test.com.hellofresh.vo.Recipe;
 /**
  * Callback used in notifying when the favourite recipe has been updated.
  */
-public interface UpdateUserCallback {
+public interface FavActionCallback {
 
     /**
      * Method called when the recipe is marked/unmarked favourite

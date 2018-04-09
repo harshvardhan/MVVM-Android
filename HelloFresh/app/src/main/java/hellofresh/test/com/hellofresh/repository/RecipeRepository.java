@@ -32,7 +32,7 @@ import hellofresh.test.com.hellofresh.api.ApiResponse;
 import hellofresh.test.com.hellofresh.api.HelloFreshService;
 import hellofresh.test.com.hellofresh.db.HelloFreshDb;
 import hellofresh.test.com.hellofresh.db.RecipeDao;
-import hellofresh.test.com.hellofresh.ui.details.UpdateUserCallback;
+import hellofresh.test.com.hellofresh.ui.details.FavActionCallback;
 import hellofresh.test.com.hellofresh.util.RateLimiter;
 import hellofresh.test.com.hellofresh.vo.Recipe;
 import hellofresh.test.com.hellofresh.vo.Resource;
@@ -126,13 +126,13 @@ public class RecipeRepository {
         }.asLiveData();
     }
 
-    public void addFavRecipe(Recipe recipe, UpdateUserCallback mUpdateUserCallback) {
-        final WeakReference<UpdateUserCallback> updateUserCallback = new WeakReference<>(mUpdateUserCallback);
+    public void addFavRecipe(Recipe recipe, FavActionCallback mFavActionCallback) {
+        final WeakReference<FavActionCallback> updateUserCallback = new WeakReference<>(mFavActionCallback);
         appExecutors.diskIO().execute(() -> {
             recipeDao.insert(recipe);
             // notify on the main thread
             appExecutors.mainThread().execute(() -> {
-                UpdateUserCallback userCallback = updateUserCallback.get();
+                FavActionCallback userCallback = updateUserCallback.get();
                 if (userCallback != null) {
                     userCallback.onFavouriteRecipeUpdated(recipe);
                 }
@@ -140,13 +140,13 @@ public class RecipeRepository {
         });
     }
 
-    public void removeFavRecipe(Recipe recipe, UpdateUserCallback mUpdateUserCallback) {
-        final WeakReference<UpdateUserCallback> updateUserCallback = new WeakReference<>(mUpdateUserCallback);
+    public void removeFavRecipe(Recipe recipe, FavActionCallback mFavActionCallback) {
+        final WeakReference<FavActionCallback> updateUserCallback = new WeakReference<>(mFavActionCallback);
         appExecutors.diskIO().execute(() -> {
             recipeDao.insert(recipe);
             // notify on the main thread
             appExecutors.mainThread().execute(() -> {
-                UpdateUserCallback userCallback = updateUserCallback.get();
+                FavActionCallback userCallback = updateUserCallback.get();
                 if (userCallback != null) {
                     userCallback.onFavouriteRecipeUpdated(recipe);
                 }

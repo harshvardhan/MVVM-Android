@@ -37,7 +37,7 @@ public class RecipeDetailsViewModel extends ViewModel {
     final MutableLiveData<RecipeId> recipeId;
     private final LiveData<Resource<Recipe>> recipe;
     private RecipeRepository recipeRepository;
-    private UpdateUserCallback mUpdateUserCallback;
+    private FavActionCallback mFavActionCallback;
 
     @Inject
     public RecipeDetailsViewModel(RecipeRepository recipeRepository) {
@@ -49,10 +49,10 @@ public class RecipeDetailsViewModel extends ViewModel {
             return recipeRepository.getRecipe(input.id);
         });
         this.recipeRepository = recipeRepository;
-        mUpdateUserCallback = createUpdateUserCallback();
+        mFavActionCallback = createUpdateUserCallback();
     }
 
-    private UpdateUserCallback createUpdateUserCallback() {
+    private FavActionCallback createUpdateUserCallback() {
         return recipeID -> {
             Log.d("", "Favourite Updated");
             Log.d("","Favourite Updated");
@@ -62,13 +62,13 @@ public class RecipeDetailsViewModel extends ViewModel {
     public void addFav()
     {
         recipe.getValue().data.setFavourite(true);
-        this.recipeRepository.addFavRecipe(recipe.getValue().data, mUpdateUserCallback);
+        this.recipeRepository.addFavRecipe(recipe.getValue().data, mFavActionCallback);
     }
 
     public void removeFav()
     {
         recipe.getValue().data.setFavourite(false);
-        this.recipeRepository.removeFavRecipe(recipe.getValue().data, mUpdateUserCallback);
+        this.recipeRepository.removeFavRecipe(recipe.getValue().data, mFavActionCallback);
     }
 
     public LiveData<Resource<Recipe>> getRecipe() {
