@@ -17,8 +17,6 @@
 package hellofresh.test.com.hellofresh.ui;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.StringRes;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -27,15 +25,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import hellofresh.test.com.hellofresh.R;
 import hellofresh.test.com.hellofresh.binding.FragmentBindingAdapters;
 import hellofresh.test.com.hellofresh.testing.SingleFragmentActivity;
 import hellofresh.test.com.hellofresh.ui.common.NavigationController;
-import hellofresh.test.com.hellofresh.ui.list.RecipeListFragment;
-import hellofresh.test.com.hellofresh.ui.list.RecipeListViewModel;
+import hellofresh.test.com.hellofresh.ui.details.RecipeDetailsFragment;
+import hellofresh.test.com.hellofresh.ui.details.RecipeDetailsViewModel;
 import hellofresh.test.com.hellofresh.util.EspressoTestUtil;
 import hellofresh.test.com.hellofresh.util.TaskExecutorWithIdlingResourceRule;
 import hellofresh.test.com.hellofresh.util.TestUtil;
@@ -44,51 +39,47 @@ import hellofresh.test.com.hellofresh.vo.Recipe;
 import hellofresh.test.com.hellofresh.vo.Resource;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(AndroidJUnit4.class)
-public class RecipeListFragmentTest {
+public class RecipeDetailFragmentTest {
     @Rule
     public ActivityTestRule<SingleFragmentActivity> activityRule =
             new ActivityTestRule<>(SingleFragmentActivity.class, true, true);
     @Rule
     public TaskExecutorWithIdlingResourceRule executorRule =
             new TaskExecutorWithIdlingResourceRule();
-    private MutableLiveData<Resource<List<Recipe>>> recipes = new MutableLiveData<>();
-    private RecipeListFragment recipeListFragment;
-    private RecipeListViewModel viewModel;
+    private MutableLiveData<Resource<Recipe>> recipe = new MutableLiveData<>();
+    private RecipeDetailsFragment recipeDetailsFragment;
+    private RecipeDetailsViewModel viewModel;
 
     private FragmentBindingAdapters fragmentBindingAdapters;
     private NavigationController navigationController;
 
-
     @Before
     public void init() {
         EspressoTestUtil.disableProgressBarAnimations(activityRule);
-        recipeListFragment = new RecipeListFragment();
-        viewModel = mock(RecipeListViewModel.class);
+        recipeDetailsFragment = new RecipeDetailsFragment();
+        viewModel = mock(RecipeDetailsViewModel.class);
         fragmentBindingAdapters = mock(FragmentBindingAdapters.class);
         navigationController = mock(NavigationController.class);
-        doNothing().when(viewModel).setQuery();
-        when(viewModel.getRecipes()).thenReturn(recipes);
+        //doNothing().when(viewModel).setId("");
+        when(viewModel.getRecipe()).thenReturn(recipe);
 
-        recipeListFragment.viewModelFactory = ViewModelUtil.createFor(viewModel);
-        recipeListFragment.navigationController = navigationController;
-        activityRule.getActivity().setFragment(recipeListFragment);
+        recipeDetailsFragment.viewModelFactory = ViewModelUtil.createFor(viewModel);
+        recipeDetailsFragment.navigationController = navigationController;
+        activityRule.getActivity().setFragment(recipeDetailsFragment);
     }
 
     @Test
     public void testLoading() {
-        recipes.postValue(Resource.loading(null));
+        recipe.postValue(Resource.loading(null));
         onView(withId(R.id.progress_bar)).check(matches(isDisplayed()));
         onView(withId(R.id.retry)).check(matches(not(isDisplayed())));
     }
@@ -96,56 +87,35 @@ public class RecipeListFragmentTest {
     @Test
     public void testValueWhileLoading() {
         try {
-            List<Recipe> listRecipes  = setReceipeList();
-            this.recipes.postValue(Resource.loading(listRecipes));
+            Recipe recipe  = setReceipe();
+            this.recipe.postValue(Resource.loading(recipe));
             onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())));
-            onView(withId(R.id.recipe_title)).check(matches(withText("Crispy Fish Goujons ")));
+            onView(withId(R.id.recipe_name)).check(matches(withText("Crispy Fish Goujons ")));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void testRecipeClick() {
-        List<Recipe> listRecipes  = null;
+    public void loadedRecipe() {
+        Recipe recipe  = null;
         try {
-            listRecipes = setReceipeList();
-            this.recipes.postValue(Resource.success(listRecipes));
-            onView(withText("Crispy Fish Goujons ")).perform(click());
-            verify(navigationController).navigateToRecipeDetail("533143aaff604d567f8b4571");
+            recipe = setReceipe();
+            this.recipe.postValue(Resource.loading(recipe));
+            onView(withId(R.id.recipe_name)).check(matches(withText(recipe.getName())));
+            onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void testError() throws InterruptedException {
-        recipes.postValue(Resource.error("foo", null));
-        onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.retry)).check(matches(isDisplayed()));
-        onView(withId(R.id.retry)).perform(click());
-        verify(viewModel).refresh();
-        recipes.postValue(Resource.loading(null));
-
-        onView(withId(R.id.progress_bar)).check(matches(isDisplayed()));
-        onView(withId(R.id.retry)).check(matches(not(isDisplayed())));
-        try {
-            List<Recipe> listRecipes = setReceipeList();
-            recipes.postValue(Resource.success(listRecipes));
-
-            onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())));
-            onView(withId(R.id.retry)).check(matches(not(isDisplayed())));
-            onView(withId(R.id.recipe_title)).check(matches(withText("Crispy Fish Goujons ")));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void nullRecipe() {
+        this.recipe.postValue(null);
+        onView(withId(R.id.recipe_name)).check(matches(not(isDisplayed())));
     }
 
-
-    private List<Recipe> setReceipeList() throws Exception {
-        List<Recipe> listRecipes = new ArrayList<>();
-        listRecipes.add(TestUtil.createRecipe());
-
-        return listRecipes;
+    private Recipe setReceipe() throws Exception {
+        return TestUtil.createRecipe();
     }
 }

@@ -25,7 +25,7 @@
             name="recipe"
             type="hellofresh.test.com.hellofresh.vo.Recipe"/>
         <variable
-            name="repoResource"
+            name="recipeResource"
             type="Resource"/>
         <variable name="retryCallback"
                   type="hellofresh.test.com.hellofresh.ui.common.RetryCallback"/>
@@ -101,7 +101,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:resource="@{repoResource}"/>
+                app:resource="@{recipeResource}"/>
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 </layout>

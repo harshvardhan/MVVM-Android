@@ -52,14 +52,14 @@ public class RecipeDetailsFragment extends Fragment implements LifecycleRegistry
     private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
 
     @Inject
-    ViewModelProvider.Factory viewModelFactory;
+    public ViewModelProvider.Factory viewModelFactory;
 
     private RecipeDetailsViewModel recipeDetailsViewModel;
 
     @Inject
-    NavigationController navigationController;
+    public NavigationController navigationController;
 
-    DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
+    public DataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
     AutoClearedValue<RecipeDetailsFragmentBinding> binding;
 
     @Override
@@ -80,8 +80,8 @@ public class RecipeDetailsFragment extends Fragment implements LifecycleRegistry
         LiveData<Resource<Recipe>> recipe = recipeDetailsViewModel.getRecipe();
         recipe.observe(this, resource -> {
             binding.get().setRecipe(resource == null ? null : resource.data);
-            binding.get().setRepoResource(resource);
-            if (resource.data != null)
+            binding.get().setRecipeResource(resource);
+            if (resource != null && resource.data != null)
                 binding.get().recipeFav.setSelected(resource.data.isFavourite);
             binding.get().executePendingBindings();
         });
