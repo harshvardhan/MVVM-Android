@@ -26,6 +26,10 @@
     <dimen name="m170dp">170dp</dimen>
     <dimen name="m180dp">180dp</dimen>
     <dimen name="m200dp">200dp</dimen>
+    <dimen name="m250dp">250dp</dimen>
+    <dimen name="m300dp">300dp</dimen>
+    <dimen name="m350dp">350dp</dimen>
+    <dimen name="m400dp">400dp</dimen>
 
     <dimen name="m16sp">16sp</dimen>
     <dimen name="m15sp">15sp</dimen>

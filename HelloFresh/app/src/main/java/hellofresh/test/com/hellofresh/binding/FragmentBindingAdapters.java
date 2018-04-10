@@ -16,13 +16,18 @@
 
 package hellofresh.test.com.hellofresh.binding;
 
+import android.content.Context;
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
 
 import javax.inject.Inject;
+
+import hellofresh.test.com.hellofresh.R;
 
 /**
  * Binding adapters that work with a fragment instance.
@@ -37,6 +42,7 @@ public class FragmentBindingAdapters {
 
     @BindingAdapter("imageUrl")
     public void bindImage(ImageView imageView, String url) {
-        Glide.with(fragment).load(url).into(imageView);
+        //Glide.with(fragment).load(R.drawable.food_artwork).into(imageView);
+        Glide.with(fragment).load(url).placeholder(R.drawable.food_artwork).into(imageView);
     }
 }
