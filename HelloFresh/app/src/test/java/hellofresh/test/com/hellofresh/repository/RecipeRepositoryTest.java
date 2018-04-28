@@ -62,7 +62,7 @@ public class RecipeRepositoryTest {
     }
 
     @Test
-    public void loadRepoFromNetwork() throws IOException {
+    public void loadRecipeFromNetwork() throws IOException {
         MutableLiveData<Recipe> dbData = new MutableLiveData<>();
         when(dao.getRecipe("533143aaff604d567f8b4571")).thenReturn(dbData);
 
