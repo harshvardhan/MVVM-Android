@@ -6,10 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity()
 public class RegionMetadatum {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -41,13 +38,5 @@ public class RegionMetadatum {
     public RegionMetadatum withLabelLocation(LabelLocation labelLocation) {
         this.labelLocation = labelLocation;
         return this;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

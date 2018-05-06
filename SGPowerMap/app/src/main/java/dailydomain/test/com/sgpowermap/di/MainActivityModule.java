@@ -25,3 +25,4 @@ public abstract class MainActivityModule {
     @ContributesAndroidInjector(modules = FragmentBuildersModule.class)
     abstract MainActivity contributeMainActivity();
 }
+

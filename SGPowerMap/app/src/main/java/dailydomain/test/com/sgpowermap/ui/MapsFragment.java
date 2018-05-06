@@ -1,7 +1,9 @@
 package dailydomain.test.com.sgpowermap.ui;
 
 import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -18,6 +20,8 @@ import javax.inject.Inject;
 import dailydomain.test.com.sgpowermap.binding.FragmentDataBindingComponent;
 import dailydomain.test.com.sgpowermap.di.Injectable;
 import dailydomain.test.com.sgpowermap.ui.common.NavigationController;
+import dailydomain.test.com.sgpowermap.vo.PSIReading;
+import dailydomain.test.com.sgpowermap.vo.Resource;
 
 public class MapsFragment extends SupportMapFragment implements OnMapReadyCallback, Injectable {
     private GoogleMap mMap;
@@ -29,7 +33,8 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
     @Inject
     public NavigationController navigationController;
 
-    public FragmentDataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
+    //public FragmentDataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
+    private MapsViewModel mapsViewModel;
 
     //AutoClearedValue<LoginFragmentBinding> binding;
 
@@ -38,6 +43,16 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         super.onViewCreated(view, savedInstanceState);
 
         this.getMapAsync(this);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mapsViewModel = ViewModelProviders.of(this, viewModelFactory).get(MapsViewModel.class);
+        mapsViewModel.setRegionID("west");
+        LiveData<Resource<PSIReading>> recipe = mapsViewModel.getPSIReading();
+        recipe.observe(this, resource -> {
+        });
     }
 
     /**
@@ -53,8 +68,10 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng singapore = new LatLng(-34, 151);
+        LatLng singapore = new LatLng(1.370337, 103.797224);
         mMap.addMarker(new MarkerOptions().position(singapore).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(singapore));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(singapore));
+        //Move the camera to the user's location and zoom in!
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(singapore.latitude, singapore.longitude), 10.0f));
     }
 }

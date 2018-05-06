@@ -6,10 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity()
 public class PsiTwentyFourHourly {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
     @SerializedName("west")
     @Expose
     private double west;
@@ -105,13 +102,5 @@ public class PsiTwentyFourHourly {
     public PsiTwentyFourHourly withNorth(double north) {
         this.north = north;
         return this;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

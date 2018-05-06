@@ -6,10 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity()
 public class LabelLocation {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
     @SerializedName("latitude")
     @Expose
     private double latitude;

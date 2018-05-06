@@ -18,6 +18,7 @@ package dailydomain.test.com.sgpowermap.di;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
+import dailydomain.test.com.sgpowermap.ui.MapsFragment;
 
 @Module
 public abstract class
@@ -26,8 +27,8 @@ FragmentBuildersModule {/*
     abstract LoginFragment contributeLoginFragment();
 
     @ContributesAndroidInjector
-    abstract RecipeListFragment contributeRecipeListFragment();
+    abstract RecipeListFragment contributeRecipeListFragment();*/
 
     @ContributesAndroidInjector
-    abstract RecipeDetailsFragment contributeRepoFragment();*/
+    abstract MapsFragment contributeMapsFragment();
 }

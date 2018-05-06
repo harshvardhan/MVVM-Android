@@ -6,10 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity()
 public class Readings {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
     @SerializedName("o3_sub_index")
     @Expose
     private O3SubIndex o3SubIndex;
@@ -201,13 +198,5 @@ public class Readings {
     public Readings withO3EightHourMax(O3EightHourMax o3EightHourMax) {
         this.o3EightHourMax = o3EightHourMax;
         return this;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

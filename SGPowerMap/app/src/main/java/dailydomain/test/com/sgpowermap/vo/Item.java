@@ -6,7 +6,6 @@ import android.arch.persistence.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(primaryKeys="timestamp")
 public class Item {
     @SerializedName("timestamp")
     @Expose
