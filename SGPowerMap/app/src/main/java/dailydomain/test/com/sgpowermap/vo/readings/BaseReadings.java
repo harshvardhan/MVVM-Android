@@ -1,12 +1,11 @@
-package dailydomain.test.com.sgpowermap.vo;
-
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
+package dailydomain.test.com.sgpowermap.vo.readings;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class No2OneHourMax {
+import java.util.HashMap;
+
+public abstract class BaseReadings implements IBaseReadings{
     @SerializedName("west")
     @Expose
     private double west;
@@ -27,80 +26,82 @@ public class No2OneHourMax {
     private double north;
 
     public double getWest() {
-        return west;
+        return this.west;
     }
 
     public void setWest(double west) {
         this.west = west;
     }
 
-    public No2OneHourMax withWest(double west) {
-        this.west = west;
-        return this;
-    }
-
     public double getNational() {
-        return national;
+        return this.national;
     }
 
     public void setNational(double national) {
         this.national = national;
     }
 
-    public No2OneHourMax withNational(double national) {
-        this.national = national;
-        return this;
-    }
-
     public double getEast() {
-        return east;
+        return this.east;
     }
 
     public void setEast(double east) {
         this.east = east;
     }
 
-    public No2OneHourMax withEast(double east) {
-        this.east = east;
-        return this;
-    }
-
     public double getCentral() {
-        return central;
+        return this.central;
     }
 
     public void setCentral(double central) {
         this.central = central;
     }
 
-    public No2OneHourMax withCentral(double central) {
-        this.central = central;
-        return this;
-    }
-
     public double getSouth() {
-        return south;
+        return this.south;
     }
 
     public void setSouth(double south) {
         this.south = south;
     }
 
-    public No2OneHourMax withSouth(double south) {
-        this.south = south;
-        return this;
-    }
-
     public double getNorth() {
-        return north;
+        return this.north;
     }
 
     public void setNorth(double north) {
         this.north = north;
     }
 
-    public No2OneHourMax withNorth(double north) {
-        this.north = north;
-        return this;
+    public abstract void setReadingValuesMap();
+
+    @Override
+    public HashMap<String, String> getReadingValuesMapInWest() {
+        return westReadings;
+    }
+
+    @Override
+    public HashMap<String, String> getReadingValuesMapInEast() {
+        return eastReadings;
+    }
+
+    @Override
+    public HashMap<String, String> getReadingValuesMapInNorth() {
+        return northReadings;
+    }
+
+    @Override
+    public HashMap<String, String> getReadingValuesMapInSouth() {
+        return southReadings;
+    }
+
+    @Override
+    public HashMap<String, String> getReadingValuesMapInCentral() {
+        return centralReadings;
+    }
+
+    @Override
+    public HashMap<String, String> getReadingValuesMapNational() {
+        return nationalReadings;
     }
 }

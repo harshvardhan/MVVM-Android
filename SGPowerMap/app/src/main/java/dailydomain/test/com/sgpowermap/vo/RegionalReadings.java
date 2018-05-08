@@ -3,42 +3,43 @@ package dailydomain.test.com.sgpowermap.vo;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
+
 public class RegionalReadings {
     private String region;
-    @SerializedName("o3_sub_index")
-    @Expose
-    private double o3SubIndex;
-    @SerializedName("pm10_twenty_four_hourly")
-    @Expose
-    private double pm10TwentyFourHourly;
-    @SerializedName("pm10_sub_index")
-    @Expose
-    private double pm10SubIndex;
-    @SerializedName("co_sub_index")
-    @Expose
-    private double coSubIndex;
-    @SerializedName("pm25_twenty_four_hourly")
-    @Expose
-    private double pm25TwentyFourHourly;
-    @SerializedName("so2_sub_index")
-    @Expose
-    private double so2SubIndex;
-    @SerializedName("co_eight_hour_max")
-    @Expose
-    private double coEightHourMax;
-    @SerializedName("no2_one_hour_max")
-    @Expose
-    private double no2OneHourMax;
-    @SerializedName("so2_twenty_four_hourly")
-    @Expose
-    private double so2TwentyFourHourly;
-    @SerializedName("pm25_sub_index")
-    @Expose
-    private double pm25SubIndex;
-    @SerializedName("psi_twenty_four_hourly")
-    @Expose
-    private double psiTwentyFourHourly;
-    @SerializedName("o3_eight_hour_max")
-    @Expose
-    private double o3EightHourMax;
+    private double latitude;
+    private double longitude;
+    private HashMap<String, String> readingsMap;
+
+    public String getRegion() {
+        return this.region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public double getLatitude() {
+        return this.latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return this.longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public HashMap<String, String> getReadingsMap() {
+        return this.readingsMap;
+    }
+
+    public void setReadingsMap(HashMap<String, String> readingsMap) {
+        this.readingsMap = readingsMap;
+    }
 }

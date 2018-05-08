@@ -1,10 +1,22 @@
 package dailydomain.test.com.sgpowermap.vo;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.HashMap;
+
+import dailydomain.test.com.sgpowermap.vo.readings.CoEightHourMax;
+import dailydomain.test.com.sgpowermap.vo.readings.CoSubIndex;
+import dailydomain.test.com.sgpowermap.vo.readings.No2OneHourMax;
+import dailydomain.test.com.sgpowermap.vo.readings.O3EightHourMax;
+import dailydomain.test.com.sgpowermap.vo.readings.O3SubIndex;
+import dailydomain.test.com.sgpowermap.vo.readings.Pm10SubIndex;
+import dailydomain.test.com.sgpowermap.vo.readings.Pm10TwentyFourHourly;
+import dailydomain.test.com.sgpowermap.vo.readings.Pm25SubIndex;
+import dailydomain.test.com.sgpowermap.vo.readings.Pm25TwentyFourHourly;
+import dailydomain.test.com.sgpowermap.vo.readings.PsiTwentyFourHourly;
+import dailydomain.test.com.sgpowermap.vo.readings.So2SubIndex;
+import dailydomain.test.com.sgpowermap.vo.readings.So2TwentyFourHourly;
 
 public class Readings {
     @SerializedName("o3_sub_index")
@@ -43,6 +55,13 @@ public class Readings {
     @SerializedName("o3_eight_hour_max")
     @Expose
     private O3EightHourMax o3EightHourMax;
+
+    private HashMap<String, String> westReadings = new HashMap<>();
+    private HashMap<String, String> eastReadings = new HashMap<>();
+    private HashMap<String, String> northReadings = new HashMap<>();
+    private HashMap<String, String> southReadings = new HashMap<>();
+    private HashMap<String, String> centralReadings = new HashMap<>();
+    private HashMap<String, String> nationalReadings = new HashMap<>();
 
     public O3SubIndex getO3SubIndex() {
         return o3SubIndex;
@@ -198,5 +217,75 @@ public class Readings {
     public Readings withO3EightHourMax(O3EightHourMax o3EightHourMax) {
         this.o3EightHourMax = o3EightHourMax;
         return this;
+    }
+
+    public void setRegionalReadingDictionary() {
+        this.coEightHourMax.setReadingValuesMap();
+        this.coSubIndex.setReadingValuesMap();
+        this.no2OneHourMax.setReadingValuesMap();
+        this.o3EightHourMax.setReadingValuesMap();
+        this.o3SubIndex.setReadingValuesMap();
+        this.pm10SubIndex.setReadingValuesMap();
+        this.pm10TwentyFourHourly.setReadingValuesMap();
+        this.pm25SubIndex.setReadingValuesMap();
+        this.pm25TwentyFourHourly.setReadingValuesMap();
+        this.psiTwentyFourHourly.setReadingValuesMap();
+        this.so2SubIndex.setReadingValuesMap();
+        this.so2TwentyFourHourly.setReadingValuesMap();
+
+        this.eastReadings = this.coEightHourMax.getReadingValuesMapInEast();
+        this.westReadings = this.coEightHourMax.getReadingValuesMapInWest();
+        this.northReadings = this.coEightHourMax.getReadingValuesMapInNorth();
+        this.southReadings = this.coEightHourMax.getReadingValuesMapInSouth();
+        this.centralReadings = this.coEightHourMax.getReadingValuesMapInCentral();
+        this.nationalReadings = this.coEightHourMax.getReadingValuesMapNational();
+    }
+
+    public HashMap<String, String> getWestReadings() {
+        return this.westReadings;
+    }
+
+    public void setWestReadings(HashMap<String, String> westReadings) {
+        this.westReadings = westReadings;
+    }
+
+    public HashMap<String, String> getEastReadings() {
+        return this.eastReadings;
+    }
+
+    public void setEastReadings(HashMap<String, String> eastReadings) {
+        this.eastReadings = eastReadings;
+    }
+
+    public HashMap<String, String> getNorthReadings() {
+        return this.northReadings;
+    }
+
+    public void setNorthReadings(HashMap<String, String> northReadings) {
+        this.northReadings = northReadings;
+    }
+
+    public HashMap<String, String> getSouthReadings() {
+        return this.southReadings;
+    }
+
+    public void setSouthReadings(HashMap<String, String> southReadings) {
+        this.southReadings = southReadings;
+    }
+
+    public HashMap<String, String> getCentralReadings() {
+        return this.centralReadings;
+    }
+
+    public void setCentralReadings(HashMap<String, String> centralReadings) {
+        this.centralReadings = centralReadings;
+    }
+
+    public HashMap<String, String> getNationalReadings() {
+        return this.nationalReadings;
+    }
+
+    public void setNationalReadings(HashMap<String, String> nationalReadings) {
+        this.nationalReadings = nationalReadings;
     }
 }

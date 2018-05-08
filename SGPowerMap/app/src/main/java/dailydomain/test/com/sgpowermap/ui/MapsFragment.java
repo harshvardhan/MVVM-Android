@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,9 +50,15 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mapsViewModel = ViewModelProviders.of(this, viewModelFactory).get(MapsViewModel.class);
-        mapsViewModel.setRegionID("west");
-        LiveData<Resource<PSIReading>> recipe = mapsViewModel.getPSIReading();
-        recipe.observe(this, resource -> {
+        mapsViewModel.setRegionID("Test");
+        LiveData<Resource<PSIReading>> psiReading = mapsViewModel.getPSIReading();
+        psiReading.observe(this, resource -> {
+            Log.d("", "");
+            if (resource != null && resource.data != null)
+            {
+                mapsViewModel.getRegionalReadings(resource.data);
+                Log.d("", "");
+            }
         });
     }
 
@@ -66,12 +73,13 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
+        // Add a marker in singapore and move the camera
         LatLng singapore = new LatLng(1.370337, 103.797224);
         mMap.addMarker(new MarkerOptions().position(singapore).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(singapore));
         //Move the camera to the user's location and zoom in!
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(singapore.latitude, singapore.longitude), 10.0f));
     }
+
+    //public void addMarker(LatLng )
 }

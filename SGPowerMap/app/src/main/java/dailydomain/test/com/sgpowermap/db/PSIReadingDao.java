@@ -25,16 +25,13 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 import dailydomain.test.com.sgpowermap.vo.PSIReading;
+import dailydomain.test.com.sgpowermap.vo.RegionalReadings;
 
 /**
  * Interface for database access on Reading related operations.
  */
 @Dao
 public abstract class PSIReadingDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public abstract void insertList(List<PSIReading> psiReadings);
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public abstract void insert(PSIReading psiReading);
 
