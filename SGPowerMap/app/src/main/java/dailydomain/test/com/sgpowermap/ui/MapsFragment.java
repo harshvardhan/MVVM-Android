@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,12 +17,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
-import dailydomain.test.com.sgpowermap.binding.FragmentDataBindingComponent;
 import dailydomain.test.com.sgpowermap.di.Injectable;
-import dailydomain.test.com.sgpowermap.ui.common.NavigationController;
 import dailydomain.test.com.sgpowermap.vo.PSIReading;
+import dailydomain.test.com.sgpowermap.vo.RegionalReadings;
 import dailydomain.test.com.sgpowermap.vo.Resource;
 
 public class MapsFragment extends SupportMapFragment implements OnMapReadyCallback, Injectable {
@@ -31,13 +33,7 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
 
     private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
 
-    @Inject
-    public NavigationController navigationController;
-
-    //public FragmentDataBindingComponent dataBindingComponent = new FragmentDataBindingComponent(this);
     private MapsViewModel mapsViewModel;
-
-    //AutoClearedValue<LoginFragmentBinding> binding;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -56,10 +52,18 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
             Log.d("", "");
             if (resource != null && resource.data != null)
             {
-                mapsViewModel.getRegionalReadings(resource.data);
-                Log.d("", "");
+                this.setMarkersAndLabel(mapsViewModel.getRegionalReadings(resource.data));
             }
         });
+    }
+
+    public void setMarkersAndLabel(List<RegionalReadings> regionalReadingsList){
+        for (RegionalReadings regionalReadings : regionalReadingsList){
+            if (mMap != null){
+                LatLng latlong = new LatLng(regionalReadings.getLatitude(), regionalReadings.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(latlong).snippet(regionalReadings.getReadingsMap().toString()).title(regionalReadings.getRegion()));
+            }
+        }
     }
 
     /**
@@ -73,13 +77,12 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        // Add a marker in singapore and move the camera
+
+        //setting custom info window for the reading details to be rendered clearly
+        mMap.setInfoWindowAdapter(new InfoWindowCustom(this.getContext()));
+
+        //Move the camera to the Singapore Location and zoom in!
         LatLng singapore = new LatLng(1.370337, 103.797224);
-        mMap.addMarker(new MarkerOptions().position(singapore).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(singapore));
-        //Move the camera to the user's location and zoom in!
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(singapore.latitude, singapore.longitude), 10.0f));
     }
-
-    //public void addMarker(LatLng )
 }

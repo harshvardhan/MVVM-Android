@@ -83,7 +83,7 @@ public class MapsViewModel extends ViewModel {
 
             LabelLocation labelLocation = regionMetadatum.getLabelLocation();
             regionalReading.setLatitude(labelLocation.getLatitude());
-            regionalReading.setLatitude(labelLocation.getLongitude());
+            regionalReading.setLongitude(labelLocation.getLongitude());
 
             regionalReadings.add(regionalReading);
         }

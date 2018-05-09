@@ -58,13 +58,13 @@ public class PSIReadingRepository {
         return new NetworkBoundResource<PSIReading, PSIReading>(appExecutors) {
             @Override
             protected void saveCallResult(@NonNull PSIReading item) {
-                db.beginTransaction();
+                /*db.beginTransaction();
                 try {
                     psiReadingDao.insert(item);
                     db.setTransactionSuccessful();
                 } finally {
                     db.endTransaction();
-                }
+                }*/
             }
 
             @Override
