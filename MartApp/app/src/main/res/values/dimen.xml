@@ -1,0 +1,59 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="m1dp">1dp</dimen>
+    <dimen name="m2dp">2dp</dimen>
+    <dimen name="m3dp">3dp</dimen>
+    <dimen name="m4dp">4dp</dimen>
+    <dimen name="m5dp">5dp</dimen>
+    <dimen name="m6dp">6dp</dimen>
+    <dimen name="m8dp">8dp</dimen>
+    <dimen name="m10dp">10dp</dimen>
+    <dimen name="m15dp">15dp</dimen>
+    <dimen name="m20dp">20dp</dimen>
+    <dimen name="m30dp">30dp</dimen>
+    <dimen name="m35dp">35dp</dimen>
+    <dimen name="m40dp">40dp</dimen>
+    <dimen name="m45dp">45dp</dimen>
+    <dimen name="m50dp">50dp</dimen>
+    <dimen name="m60dp">60dp</dimen>
+    <dimen name="m65dp">65dp</dimen>
+    <dimen name="m75dp">75dp</dimen>
+    <dimen name="m85dp">85dp</dimen>
+    <dimen name="m100dp">100dp</dimen>
+    <dimen name="m120dp">120dp</dimen>
+    <dimen name="m140dp">140dp</dimen>
+    <dimen name="m150dp">150dp</dimen>
+    <dimen name="m170dp">170dp</dimen>
+    <dimen name="m180dp">180dp</dimen>
+    <dimen name="m200dp">200dp</dimen>
+    <dimen name="m250dp">250dp</dimen>
+    <dimen name="m300dp">300dp</dimen>
+    <dimen name="m350dp">350dp</dimen>
+    <dimen name="m400dp">400dp</dimen>
+
+    <dimen name="m16sp">16sp</dimen>
+    <dimen name="m15sp">15sp</dimen>
+    <dimen name="m14sp">14sp</dimen>
+
+
+    <dimen name="activity_horizontal_margin_small">10dp</dimen>
+    <dimen name="activity_vertical_margin_small">10dp</dimen>
+
+    <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
+         https://developer.android.com/design/patterns/navigation-drawer.html -->
+    <dimen name="navigation_drawer_width">240dp</dimen>
+    <dimen name="corner_radius">3dp</dimen>
+    <dimen name="widget_image_height">100dp</dimen>
+    <dimen name="widget_image_width">100dp</dimen>
+    <dimen name="course_label_horizontal_margin">10dp</dimen>
+    <dimen name="gradient_radius">5dp</dimen>
+    <dimen name="fb_card_width">230dp</dimen>
+    <dimen name="m18sp">18sp</dimen>
+    <dimen name="m30sp">30sp</dimen>
+    <dimen name="m160dp">160dp</dimen>
+    <dimen name="m220dp">220dp</dimen>
+    <dimen name="m56dp">56dp</dimen>
+    <dimen name="default_margin">8dp</dimen>
+    <dimen name="photo_size">64dp</dimen>
+    <dimen name="recipe_title_text_size">16dp</dimen>
+</resources>
